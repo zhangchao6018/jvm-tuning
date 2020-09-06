@@ -3,7 +3,7 @@ package com.zc.jvmtuning.gc;
 /**
  * 描述:
  * 老年代GC如何触发
- *
+ * 47
  * -XX:NewSize=10485760 -XX:MaxNewSize=10485760 -XX:InitialHeapSize=20971520 -XX:MaxHeapSize=20971520 -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=15 -XX:PretenureSizeThreshold=3145728 -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:./jvm-tuning/gc.log
  *
  * 总结:

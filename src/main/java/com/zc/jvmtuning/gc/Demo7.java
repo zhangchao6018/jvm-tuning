@@ -34,6 +34,18 @@ package com.zc.jvmtuning.gc;
  *  原因分析:新生代s区内存(25M)小于一次方法执行可能存活的最大内存(40M)
  *
  *  实际生产中多线程可能更复杂,因此该情况首要是新增新生代内存大小,提升s区内存占比,使其尽可能总能存储每次y gc的存活对象
+ *
+ *
+ *
+ *
+ *  ---------------------------------------------JVM调优一般步骤-----------------------------------------------
+ *  1.分析机器情况（机器配置，堆内存大小，运行时长，FullGC次数、时间，YoungGC次数、时间、剩余内存、晋升内存）
+ * 2.查看具体的jvm参数配置
+ * 3.然后根据JVM参数配置梳理出JVM模型，每个区间的大小是多少，画出来JVM模型（考虑每个设置在申请情况下会执行GC）
+ * 4.结合jstat查看的GC情况，在结合JVM模型进行二次分析
+ * 5.jmap dump内存快照，通过jhat或者Visual VM之类的工具查看具体的对象分类情况
+ * 6.根据分析的情况再具体到问题（Bug、或者参数设置等问题）
+ * 7.修复Bug，优化JVM参数
  * @Author: zhangchao
  **/
 public class Demo7 {
@@ -45,10 +57,7 @@ public class Demo7 {
     }
 
     private static void loadData() throws InterruptedException {
-        byte[] data1 = new byte[10 * 1024 * 1024];
-        byte[] data2 = new byte[10 * 1024 * 1024];
-        byte[] data3 = new byte[10 * 1024 * 1024];
-        data3 = new  byte[10 * 1024 * 1024];
+
 
         byte[] data = null;
         for (int j=1;j<=4 ;j++) {
@@ -56,6 +65,10 @@ public class Demo7 {
         }
         data = null;
 
+        byte[] data1 = new byte[10 * 1024 * 1024];
+        byte[] data2 = new byte[10 * 1024 * 1024];
+        byte[] data3 = new byte[10 * 1024 * 1024];
+        data3 = new  byte[10 * 1024 * 1024];
 
         Thread.sleep(1000);
     }
